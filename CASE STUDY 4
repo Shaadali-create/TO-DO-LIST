@@ -1,0 +1,55 @@
+tasks = {}  # {id: {"task": "desc", "done": False}}
+next_id = 1
+
+while True:
+  print("\nTo-Do List:")
+  print("1. Add, 2. View, 3. Delete, 4. Done, 5. Exit")
+
+  choice = input("Choice: ")
+
+  if choice == "1":
+    desc = input("Task: ")
+    tasks[next_id] = {"task": desc, "done": False}
+    print(f"Added: '{desc}' (ID: {next_id})")
+    next_id += 1
+  
+  elif choice == "2":
+    if not tasks:
+      print("Empty.")
+    else:
+      for id, data in tasks.items():
+        print(f"{id}. {'[X]' if data['done'] else '[ ]'} {data['task']}")
+
+  elif choice == "3":
+    if not tasks:
+      print("Empty.")
+    else:
+      try:
+        id_to_del = int(input("ID: "))
+        if id_to_del in tasks:
+          print(f"Deleted: '{tasks.pop(id_to_del)['task']}'")
+        else:
+          print("Not found.")
+      except ValueError:
+        print("Invalid ID.")
+
+  elif choice == "4":
+      if not tasks:
+        print("Empty.")
+      else:
+        try:
+          id_to_mark = int(input("ID: "))
+          if id_to_mark in tasks:
+             tasks[id_to_mark]["done"] = True
+             print(f"Done: {tasks[id_to_mark]['task']}")
+          else:
+            print("Not found.")
+        except ValueError:
+              print("Invalid ID.")
+
+  elif choice == "5":
+      print("Bye!")
+      break
+    
+  else:
+      print("Invalid.")
